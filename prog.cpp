@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 
 struct Candidato{
 	std::string nome;
@@ -15,8 +16,9 @@ std::string linha;
 long int quantidade=0;
 long int contador=0;
 Candidato* lista;
-std::ifstream arquivo ("gabarito.txt");
 
+//LEITURA DO ARQUIVO E CONTAGEM DE LINHAS ==================================================
+std::ifstream arquivo ("gabarito.txt");
 if(arquivo.is_open()){
 	while(getline (arquivo,linha)){
 		//std::cout << linha << '\n';
@@ -25,27 +27,53 @@ if(arquivo.is_open()){
 	arquivo.close();
 }else{
 	std::cout<<"Erro ao abrir arquivo";
-} 
+} //========================================================================================
 
-std::cout<<contador<<std::endl;
-
+std::cout<<"contador "<<contador<<std::endl;
+std::cout<<"quantidade de candidatos "<<quantidade<<std::endl;
+std::cout<<std::endl;
 lista=new Candidato[quantidade];
 
+
+//ATRIBUICAO DO ARQUIVO NAS VARIAVEIS ======================================================
 std::ifstream arquivo2 ("gabarito.txt");
+
 if(arquivo2.is_open()){
-	//FAZER A ATRIBUICAO DO ARQUIVO AS VARIAVEIS
+	std::string nome;
+	char resposta;
+	while(!arquivo2.eof()){
+		arquivo2>>nome;
+		std::cout<<nome<<"\n";
+		for(int i=0;i<9;i++){
+			arquivo2>>resposta;
+			std::cout<<resposta<<"\n";
+		}
+	}
 	for(long int i=0;i<quantidade;i++){
 		getline(arquivo2,lista[i].linhaArquivo);
 	}
-
+	arquivo2.close();
 }else{
 	std::cout<<"Erro ao abrir arquivo";
+} //========================================================================================
+
+//std::cout<<lista[0].linhaArquivo<<std::endl;
+//std::cout<<lista[1].linhaArquivo<<std::endl;
+//std::cout<<lista[2].linhaArquivo<<std::endl;	//IMPRIMIR VARIAVEIS (AINDA EM STRING)
+//std::cout<<lista[0].linhaArquivo[7]<<std::endl;
+
+//IMPRIME CADA CARACTER DA STRING, PULA LINHA QUANDO TEM ESPAÇO ===========================
+for(int i=0;i<lista[2].linhaArquivo.size();i++){
+	if (lista[2].linhaArquivo[i]==' '){
+		std::cout<<"\n";
+	}else {
+		std::cout<<lista[2].linhaArquivo[i];
+	}
 }
-arquivo2.close();
-
-std::cout<<lista[0].linhaArquivo<<std::endl;
-std::cout<<lista[1].linhaArquivo<<std::endl;
-std::cout<<lista[2].linhaArquivo<<std::endl;
-
+std::cout<<std::endl; //===================================================================
+std::cout<<"teste"<<std::endl;
+std::cout<<"teste"<<std::endl;
+std::cout<<"teste"<<std::endl;
+std::cout<<"teste"<<std::endl;
 return 0;
 }

@@ -1,6 +1,6 @@
 Candidato1 a b c d e f g h i j
-Candidato2 a b c d e f g h i j
-Candidato3 a b c d e f g h i j
+Candidato2 j i h g f e d c b a
+Candidato3 0 1 2 3 4 5 6 7 8 9
 Candidato4 a b c d e f g h i j
 Candidato5 a b c d e f g h i j
 Candidato6 a b c d e f g h i j
