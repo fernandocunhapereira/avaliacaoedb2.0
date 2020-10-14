@@ -12,7 +12,7 @@ struct Candidato{
 struct Questoes{
 	long int acertos[10]={0,0,0,0,0,0,0,0,0,0};
 	long int brancos[10]={0,0,0,0,0,0,0,0,0,0};
-	int numeroQuestoes[10]={1,2,3,4,5,6,7,8,9,10};
+	int numeroQuestoes[10]={1,2,3,4,5,6,7,8,9,10}; //vetor para identificar o numero das questoes quando os vetores acertos e brancos forem ordenados
 };
 
 //============================= INICIO PROGRAMA ===========================
@@ -28,6 +28,21 @@ std::string nomeArquivo=argv[1];
 std::string funcao=argv[2];
 int ranking=std::atoi(argv[3]);
 
+//RECEBER ARQUIVO GABARITO TXT E ATRIBUIR NO VETOR GABARITO ================
+if(argv[4]!=NULL){
+	std::string nomeGabarito=argv[4];
+	std::ifstream arquivo3(nomeGabarito);
+	if(arquivo3.is_open()){
+		for(int i=0;i<10;i++){
+			arquivo3>>gabarito[i];
+		}
+	}else{
+		std::cout<<"Erro ao abrir arquivo\n";
+	}
+}
+
+//==========================================================================
+
 //LEITURA DO ARQUIVO E CONTAGEM DE LINHAS ==================================
 std::ifstream arquivo (nomeArquivo); 
 if(arquivo.is_open()){
@@ -37,7 +52,7 @@ if(arquivo.is_open()){
 	}
 	arquivo.close();
 }else{
-	std::cout<<"Erro ao abrir arquivo";
+	std::cout<<"Erro ao abrir arquivo\n";
 } 
 //==========================================================================
 
@@ -67,8 +82,9 @@ if(arquivo2.is_open()){
 	}
 	
 }else{
-	std::cout<<"Erro ao abrir arquivo";
-}//=========================================================================
+	std::cout<<"Erro ao abrir arquivo\n";
+}
+//=========================================================================
 
 //CALCULO DAS NOTAS DOS ALUNOS; BRANCOS E ACERTOS POR QUESTAO ==============
 for(long int i=0;i<quantidade;i++){
@@ -77,7 +93,7 @@ for(long int i=0;i<quantidade;i++){
 			lista[i].nota +=1; //incrementa nota do aluno
 		}
 		if(lista[i].respostas[j]!='A' && lista[i].respostas[j]!='B' && lista[i].respostas[j]!='C' && lista[i].respostas[j]!='D' && lista[i].respostas[j]!='E'){
-			questoes.brancos[j] +=1; //incrementa brancos por questao  
+			questoes.brancos[j] +=1; //incrementa brancos por questao 
 		}
 		if(lista[i].respostas[j]==gabarito[j]){
 			questoes.acertos[j] +=1; //incrementa acertos por questao
@@ -86,7 +102,7 @@ for(long int i=0;i<quantidade;i++){
 }
 //==========================================================================
 
-//TOTAL DE BRANCOS E ACERTOS POR QUESTAO ===================================
+//IMPRIMIR TOTAL DE BRANCOS E ACERTOS POR QUESTAO ==========================
 std::cout<<"brancos ";
 for(int i=0;i<10;i++){
 	std::cout<<questoes.brancos[i]<<" ";
@@ -103,7 +119,14 @@ std::cout<<"quantidade de candidatos "<<quantidade<<std::endl;
 std::cout<<"nome do arquivo "<<nomeArquivo<<std::endl;;
 std::cout<<"nome da funcao "<<funcao<<std::endl;
 std::cout<<"ranking "<<ranking<<std::endl;
+if(argv[4]!=NULL){
+	std::cout<<"com arquivo gabarito"<<std::endl;
+}else{
+	std::cout<<"sem arquivo gabarito"<<std::endl;
+}
 std::cout<<std::endl; 
 std::cout<<"fim teste"<<std::endl;
+
+delete[] lista;
 return 0;
 }
