@@ -41,18 +41,23 @@ std::ifstream arquivo2 ("gabarito.txt");
 if(arquivo2.is_open()){
 	std::string nome;
 	char resposta;
-	while(!arquivo2.eof()){
-		arquivo2>>nome;
-		std::cout<<nome<<"\n";
-		for(int i=0;i<9;i++){
-			arquivo2>>resposta;
-			std::cout<<resposta<<"\n";
+	// while(!arquivo2.eof()){
+	// 	arquivo2>>nome;
+	// 	std::cout<<nome<<"\n";
+	// 	for(int i=0;i<10;i++){
+	// 		arquivo2>>resposta;
+	// 		std::cout<<resposta<<"\n";
+	// 	}
+	// }
+	for(long int i=0;i<quantidade;i++){
+		arquivo2>>lista[i].nome;
+		std::cout<<lista[i].nome<<"\n";
+		for(int j=0;j<10;j++){
+			arquivo2>>lista[i].respostas[j];
+			std::cout<<lista[i].respostas[j]<<"\n";
 		}
 	}
-	for(long int i=0;i<quantidade;i++){
-		getline(arquivo2,lista[i].linhaArquivo);
-	}
-	arquivo2.close();
+	
 }else{
 	std::cout<<"Erro ao abrir arquivo";
 } //========================================================================================
@@ -63,17 +68,15 @@ if(arquivo2.is_open()){
 //std::cout<<lista[0].linhaArquivo[7]<<std::endl;
 
 //IMPRIME CADA CARACTER DA STRING, PULA LINHA QUANDO TEM ESPAÇO ===========================
-for(int i=0;i<lista[2].linhaArquivo.size();i++){
-	if (lista[2].linhaArquivo[i]==' '){
-		std::cout<<"\n";
-	}else {
-		std::cout<<lista[2].linhaArquivo[i];
-	}
-}
+// for(int i=0;i<lista[2].linhaArquivo.size();i++){
+// 	if (lista[2].linhaArquivo[i]==' '){
+// 		std::cout<<"\n";
+// 	}else {
+// 		std::cout<<lista[2].linhaArquivo[i];
+// 	}
+// }
 std::cout<<std::endl; //===================================================================
-std::cout<<"teste"<<std::endl;
-std::cout<<"teste"<<std::endl;
-std::cout<<"teste"<<std::endl;
-std::cout<<"teste"<<std::endl;
+
+std::cout<<"fim teste"<<std::endl;
 return 0;
 }
