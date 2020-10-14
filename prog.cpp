@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-//#include <cstring>
 
 struct Candidato{
 	std::string nome;
@@ -25,9 +24,12 @@ long int contador=0;
 Candidato* lista;
 Questoes questoes;
 char gabarito[10]={'A','B','C','D','E','E','D','C','B','A'};
+std::string nomeArquivo=argv[1];
+std::string funcao=argv[2];
+int ranking=std::atoi(argv[3]);
 
 //LEITURA DO ARQUIVO E CONTAGEM DE LINHAS ==================================
-std::ifstream arquivo ("gabarito.txt");
+std::ifstream arquivo (nomeArquivo); 
 if(arquivo.is_open()){
 	while(getline (arquivo,linha)){
 		//std::cout << linha << '\n';
@@ -39,14 +41,10 @@ if(arquivo.is_open()){
 } 
 //==========================================================================
 
-std::cout<<"contador "<<contador<<std::endl;
-std::cout<<"quantidade de candidatos "<<quantidade<<std::endl;
-std::cout<<std::endl;
-
 lista=new Candidato[quantidade];
 
 //ATRIBUICAO DADOS DO ARQUIVO TXT NAS VARIAVEIS ============================
-std::ifstream arquivo2 ("gabarito.txt");
+std::ifstream arquivo2 (nomeArquivo);
 
 if(arquivo2.is_open()){
 	// std::string nome;
@@ -61,10 +59,10 @@ if(arquivo2.is_open()){
 	// }
 	for(long int i=0;i<quantidade;i++){
 		arquivo2>>lista[i].nome;
-		std::cout<<lista[i].nome<<"\n";
+		//std::cout<<lista[i].nome<<"\n";
 		for(int j=0;j<10;j++){
 			arquivo2>>lista[i].respostas[j];
-			std::cout<<lista[i].respostas[j]<<"\n";
+			//std::cout<<lista[i].respostas[j]<<"\n";
 		}
 	}
 	
@@ -72,17 +70,17 @@ if(arquivo2.is_open()){
 	std::cout<<"Erro ao abrir arquivo";
 }//=========================================================================
 
-//CALCULO DAS NOTAS DOS ALUNOS =============================================
+//CALCULO DAS NOTAS DOS ALUNOS; BRANCOS E ACERTOS POR QUESTAO ==============
 for(long int i=0;i<quantidade;i++){
 	for(int j=0;j<10;j++){
 		if(lista[i].respostas[j]==gabarito[j]){
 			lista[i].nota +=1; //incrementa nota do aluno
 		}
 		if(lista[i].respostas[j]!='A' && lista[i].respostas[j]!='B' && lista[i].respostas[j]!='C' && lista[i].respostas[j]!='D' && lista[i].respostas[j]!='E'){
-			questoes.brancos[j] +=1; //incrementa brancos na questao j
+			questoes.brancos[j] +=1; //incrementa brancos por questao  
 		}
 		if(lista[i].respostas[j]==gabarito[j]){
-			questoes.acertos[j] +=1;
+			questoes.acertos[j] +=1; //incrementa acertos por questao
 		}
 	}std::cout<<lista[i].nome<<" nota "<<lista[i].nota<<"\n";
 }
@@ -99,6 +97,12 @@ for(int i=0;i<10;i++){
 	std::cout<<questoes.acertos[i]<<" ";
 }
 //==========================================================================
+std::cout<<std::endl;
+std::cout<<"contador "<<contador<<std::endl;
+std::cout<<"quantidade de candidatos "<<quantidade<<std::endl;
+std::cout<<"nome do arquivo "<<nomeArquivo<<std::endl;;
+std::cout<<"nome da funcao "<<funcao<<std::endl;
+std::cout<<"ranking "<<ranking<<std::endl;
 std::cout<<std::endl; 
 std::cout<<"fim teste"<<std::endl;
 return 0;
