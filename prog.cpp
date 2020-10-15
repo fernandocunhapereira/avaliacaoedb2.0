@@ -116,8 +116,8 @@ for(int i=0;i<10;i++){
 //==========================================================================
 std::cout<<std::endl;
 
-//LISTAR RANKING DOS MELHORES ALUNOS =======================================
-if(funcao=="best"){
+//LISTAR RANKING DOS MELHORES/PIORES ALUNOS =======================================
+if(funcao=="best" || funcao=="worst"){
    	for(long int i=0;i<quantidade-1;++i){
     	int min=i;
     	for(long int j=i+1;j<quantidade;++j){
@@ -129,27 +129,34 @@ if(funcao=="best"){
     lista[i]=lista[min];
     lista[min]=temp;     	
 	}
-	for(long int i=quantidade-1;i>=quantidade-ranking;i--){
-		std::cout<<lista[i].nome<<"\n";
+	if(funcao=="best"){
+		for(long int i=quantidade-1;i>=quantidade-ranking;i--){
+			std::cout<<lista[i].nome<<"\n";
+		}
+	}
+	if(funcao=="worst"){
+		for(long int i=0;i<ranking;i++){
+			std::cout<<lista[i].nome<<"\n";
+		}	
 	}
 }
 //==========================================================================
-if(funcao=="worst"){
-   	for(long int i=0;i<quantidade-1;++i){
-    	int min=i;
-    	for(long int j=i+1;j<quantidade;++j){
-    		if(lista[min].nota>lista[j].nota){
-    			min=j;
-    		}	
-    	}
-    Candidato temp=lista[i];
-    lista[i]=lista[min];
-    lista[min]=temp;     	
-	}
-	for(long int i=0;i<ranking;i++){
-		std::cout<<lista[i].nome<<"\n";
-	}
-}
+// if(funcao=="worst"){
+//    	for(long int i=0;i<quantidade-1;++i){
+//     	int min=i;
+//     	for(long int j=i+1;j<quantidade;++j){
+//     		if(lista[min].nota>lista[j].nota){
+//     			min=j;
+//     		}	
+//     	}
+//     Candidato temp=lista[i];
+//     lista[i]=lista[min];
+//     lista[min]=temp;     	
+// 	}
+// 	for(long int i=0;i<ranking;i++){
+// 		std::cout<<lista[i].nome<<"\n";
+// 	}
+// }
 
 
 
