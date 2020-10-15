@@ -1,10 +1,10 @@
 Andr A B C D E E D C B A
 Brun A X C X E X D X B X
-Carl A A C C C E X E B A
+Carl A B C D C E X E B A
 Dani B B B D D X D C X X
 Edua X X C C E X X C A B
 Fabi B A B X E E D B B X
-Gabr E E X E E E C B B A
+Gabr E B X D E E C B B A
 Humb B C D A B E X C E C
 Ines A B C D E E D C B B
-Juli C X C D E E X C B A
+Juli A X C D E E X C B A

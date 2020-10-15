@@ -15,6 +15,7 @@ struct Questoes{
 	int numeroQuestoes[10]={1,2,3,4,5,6,7,8,9,10}; //vetor para identificar o numero das questoes quando os vetores acertos e brancos forem ordenados
 };
 
+
 //============================= INICIO PROGRAMA ===========================
 int main(int argc, char const *argv[]){
 
@@ -114,6 +115,46 @@ for(int i=0;i<10;i++){
 }
 //==========================================================================
 std::cout<<std::endl;
+
+//LISTAR RANKING DOS MELHORES ALUNOS =======================================
+if(funcao=="best"){
+   	for(long int i=0;i<quantidade-1;++i){
+    	int min=i;
+    	for(long int j=i+1;j<quantidade;++j){
+    		if(lista[min].nota>lista[j].nota){
+    			min=j;
+    		}	
+    	}
+    Candidato temp=lista[i];
+    lista[i]=lista[min];
+    lista[min]=temp;     	
+	}
+	for(long int i=quantidade-1;i>=quantidade-ranking;i--){
+		std::cout<<lista[i].nome<<"\n";
+	}
+}
+//==========================================================================
+if(funcao=="worst"){
+   	for(long int i=0;i<quantidade-1;++i){
+    	int min=i;
+    	for(long int j=i+1;j<quantidade;++j){
+    		if(lista[min].nota>lista[j].nota){
+    			min=j;
+    		}	
+    	}
+    Candidato temp=lista[i];
+    lista[i]=lista[min];
+    lista[min]=temp;     	
+	}
+	for(long int i=0;i<ranking;i++){
+		std::cout<<lista[i].nome<<"\n";
+	}
+}
+
+
+
+//IMPRESSAO DE ALGUMAS VARIAVEIS ===========================================
+std::cout<<std::endl;
 std::cout<<"contador "<<contador<<std::endl;
 std::cout<<"quantidade de candidatos "<<quantidade<<std::endl;
 std::cout<<"nome do arquivo "<<nomeArquivo<<std::endl;;
@@ -124,8 +165,12 @@ if(argv[4]!=NULL){
 }else{
 	std::cout<<"sem arquivo gabarito"<<std::endl;
 }
-std::cout<<std::endl; 
+for(int i=0;i<10;i++){
+	std::cout<<gabarito[i]<<" ";	
+}
+std::cout<<std::endl;
 std::cout<<"fim teste"<<std::endl;
+//==========================================================================
 
 delete[] lista;
 return 0;
