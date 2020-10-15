@@ -29,7 +29,7 @@ std::string nomeArquivo=argv[1];
 std::string funcao=argv[2];
 int ranking=std::atoi(argv[3]);
 
-//RECEBER ARQUIVO GABARITO TXT E ATRIBUIR NO VETOR GABARITO ================
+//RECEBER GABARITO TXT E ATRIBUIR NO VETOR GABARITO (SE FOR O CASO)=========
 if(argv[4]!=NULL){
 	std::string nomeGabarito=argv[4];
 	std::ifstream arquivo3(nomeGabarito);
@@ -116,48 +116,86 @@ for(int i=0;i<10;i++){
 //==========================================================================
 std::cout<<std::endl;
 
-//LISTAR RANKING DOS MELHORES/PIORES ALUNOS =======================================
+//LISTAR RANKING DOS MELHORES/PIORES ALUNOS ================================
 if(funcao=="best" || funcao=="worst"){
-   	for(long int i=0;i<quantidade-1;++i){
+   	for(long int i=0;i<quantidade-1;i++){
     	int min=i;
-    	for(long int j=i+1;j<quantidade;++j){
+    	for(long int j=i+1;j<quantidade;j++){
     		if(lista[min].nota>lista[j].nota){
     			min=j;
     		}	
-    	}
+    	}										//SELECTION SORT
     Candidato temp=lista[i];
     lista[i]=lista[min];
-    lista[min]=temp;     	
+    lista[min]=temp;    	
 	}
-	if(funcao=="best"){
+	if(funcao=="best"){ //imprime melhores
 		for(long int i=quantidade-1;i>=quantidade-ranking;i--){
 			std::cout<<lista[i].nome<<"\n";
 		}
 	}
-	if(funcao=="worst"){
+	if(funcao=="worst"){ //imprime piores
 		for(long int i=0;i<ranking;i++){
 			std::cout<<lista[i].nome<<"\n";
 		}	
 	}
 }
 //==========================================================================
-// if(funcao=="worst"){
-//    	for(long int i=0;i<quantidade-1;++i){
-//     	int min=i;
-//     	for(long int j=i+1;j<quantidade;++j){
-//     		if(lista[min].nota>lista[j].nota){
-//     			min=j;
-//     		}	
-//     	}
-//     Candidato temp=lista[i];
-//     lista[i]=lista[min];
-//     lista[min]=temp;     	
-// 	}
-// 	for(long int i=0;i<ranking;i++){
-// 		std::cout<<lista[i].nome<<"\n";
-// 	}
-// }
 
+//LISTAR QUESTOES MAIS BRANCOS =============================================
+if(funcao=="blank-questions"){
+	for(int i=0;i<9;i++){
+    	int min=i;
+    	for(int j=i+1;j<10;j++){
+    		if(questoes.brancos[min]>questoes.brancos[j]){
+    			min=j;
+    		}	
+    	}										//SELECTION SORT
+    long int temp=questoes.brancos[i];
+    questoes.brancos[i]=questoes.brancos[min];
+    questoes.brancos[min]=temp;     	
+	
+	int temp2=questoes.numeroQuestoes[i];
+    questoes.numeroQuestoes[i]=questoes.numeroQuestoes[min];
+    questoes.numeroQuestoes[min]=temp2;     	
+	}
+	for(int i=9;i>9-ranking;i--){
+		std::cout<<questoes.numeroQuestoes[i]<<"\n";
+	}
+}
+//==========================================================================
+
+//LISTAR QUESTOES COM MAIS/MENOS ACERTOS ===================================
+if(funcao=="best-questions" || funcao=="worst-questions"){
+	for(int i=0;i<9;i++){
+    	int min=i;
+    	for(int j=i+1;j<10;j++){
+    		if(questoes.acertos[min]>questoes.acertos[j]){
+    			min=j;
+    		}	
+    	}										//SELECTION SORT
+    long int temp=questoes.acertos[i];
+    questoes.acertos[i]=questoes.acertos[min];
+    questoes.acertos[min]=temp;     	
+	
+	int temp2=questoes.numeroQuestoes[i];
+    questoes.numeroQuestoes[i]=questoes.numeroQuestoes[min];
+    questoes.numeroQuestoes[min]=temp2;     	
+	}
+	if(funcao=="best-questions"){ //imprime questoes com mais acertos
+		for(int i=9;i>9-ranking;i--){
+			std::cout<<questoes.numeroQuestoes[i]<<"\n";
+		}
+	}
+	if(funcao=="worst-questions"){ //imprime questoes com menos acertos
+		for(int i=0;i<ranking;i++){
+			std::cout<<questoes.numeroQuestoes[i]<<"\n";
+		}
+	}
+
+}
+
+//==========================================================================
 
 
 //IMPRESSAO DE ALGUMAS VARIAVEIS ===========================================
@@ -168,10 +206,11 @@ std::cout<<"nome do arquivo "<<nomeArquivo<<std::endl;;
 std::cout<<"nome da funcao "<<funcao<<std::endl;
 std::cout<<"ranking "<<ranking<<std::endl;
 if(argv[4]!=NULL){
-	std::cout<<"com arquivo gabarito"<<std::endl;
+	std::cout<<"com arquivo gabarito txt"<<std::endl;
 }else{
-	std::cout<<"sem arquivo gabarito"<<std::endl;
+	std::cout<<"sem arquivo gabarito txt"<<std::endl;
 }
+std::cout<<"gabarito ";
 for(int i=0;i<10;i++){
 	std::cout<<gabarito[i]<<" ";	
 }
