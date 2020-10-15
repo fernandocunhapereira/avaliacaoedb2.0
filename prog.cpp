@@ -147,13 +147,13 @@ if(funcao=="blank-questions"){
     questoes.numeroQuestoes[min]=temp2;     	
 	}// ok daqui pra cima ===========
 
-	for(int i=0;i<9;i++){ //===== ordenando resultado anterior pelo numero da questao (as que tem valores iguais)
+	for(int i=0;i<9;i++){ 
 		int min=i;
-		for(int j=i+1;j<10;j++){
+		for(int j=i+1;j<10;j++){ //===== ordenando resultado anterior (que tem valores iguais) pelo numero da questao
 			if(questoes.brancos[min]==questoes.brancos[j] && questoes.numeroQuestoes[min]<questoes.numeroQuestoes[j]){
 				min=j;
 			}
-		}
+		}								//SELECTION SORT 
 	int temp3=questoes.numeroQuestoes[i]; 
     questoes.numeroQuestoes[i]=questoes.numeroQuestoes[min];
     questoes.numeroQuestoes[min]=temp3; 	
@@ -178,29 +178,42 @@ if(funcao=="best-questions" || funcao=="worst-questions"){
     questoes.acertos[i]=questoes.acertos[min];
     questoes.acertos[min]=temp;     	
 	
-	int temp2=questoes.numeroQuestoes[i]; //vetor com o numero das questoes é ordenado conforme vetor com quantidade de acertos
+	int temp2=questoes.numeroQuestoes[i]; //vetor com o numero das questoes é ordenado conforme vetor de quantidade de acertos
     questoes.numeroQuestoes[i]=questoes.numeroQuestoes[min];
     questoes.numeroQuestoes[min]=temp2;     	
 	}// ok daqui pra cima =================================
 
-	for(int i=0;i<9;i++){ //===== ordenando resultado anterior pelo numero da questao (as que tem valores iguais)
-		int min=i;
-		for(int j=i+1;j<10;j++){
-			if(questoes.acertos[min]==questoes.acertos[j] && questoes.numeroQuestoes[min]<questoes.numeroQuestoes[j]){
-				min=j;
-			}
-		}
-	int temp4=questoes.numeroQuestoes[i]; 
-    questoes.numeroQuestoes[i]=questoes.numeroQuestoes[min];
-    questoes.numeroQuestoes[min]=temp4; 	
-	} //======
+	if(funcao=="best-questions"){ //imprime questoes com mais acertos
+		for(int i=0;i<9;i++){ 
+			int min=i;	
+			for(int j=i+1;j<10;j++){ //===== ordenando resultado anterior (que tem valores iguais) pelo numero da questao 
+				if(questoes.acertos[min]==questoes.acertos[j] && questoes.numeroQuestoes[min]<questoes.numeroQuestoes[j]){
+					min=j;
+				}
+			}								//SELECTION SORT
+		int temp4=questoes.numeroQuestoes[i]; 
+    	questoes.numeroQuestoes[i]=questoes.numeroQuestoes[min];
+    	questoes.numeroQuestoes[min]=temp4; 	
+		} //======		
 
-	if(funcao=="best-questions"){ //imprime questoes com mais acertos (do fim do vetor para inicio)
 		for(int i=9;i>9-ranking;i--){
 			std::cout<<questoes.numeroQuestoes[i]<<"\n";
 		}
 	}
-	if(funcao=="worst-questions"){ //imprime questoes com menos acertos (do inicio do vetor para fim)
+
+	if(funcao=="worst-questions"){ //imprime questoes com menos acertos
+		for(int i=0;i<9;i++){ 
+			int min=i;	//===== ordenando resultado anterior (que tem valores iguais) pelo numero da questao 
+			for(int j=i+1;j<10;j++){
+				if(questoes.acertos[min]==questoes.acertos[j] && questoes.numeroQuestoes[min]>questoes.numeroQuestoes[j]){
+					min=j;
+				}
+			}								//SELECTION SORT
+		int temp5=questoes.numeroQuestoes[i]; 
+    	questoes.numeroQuestoes[i]=questoes.numeroQuestoes[min];
+    	questoes.numeroQuestoes[min]=temp5; 	
+		} //======	
+
 		for(int i=0;i<ranking;i++){
 			std::cout<<questoes.numeroQuestoes[i]<<"\n";
 		}
